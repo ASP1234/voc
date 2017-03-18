@@ -120,16 +120,8 @@ public class ImportLib {
                             python_module = importNativeModule(mod_name);
                         } else {
                             // org.Python.debug("handle IMPORT", mod_name);
-                            try {
-                                // try to import unknown native module as python..
-                                python_module = importPythonModule(mod_name);
-                            } catch (java.lang.ClassNotFoundException e) {
-                                // .. but try again to import as native module
-                                // if is not found, otherwise some modules like
-                                // generated resource modules can not be imported
-                                // org.Python.debug("handle NATIVE IMPORT as fallback", mod_name);
-                                python_module = importNativeModule(mod_name);
-                            }
+                            // try to import unknown native module as python..
+                            python_module = importPythonModule(mod_name);
                         }
                     } catch (java.lang.ClassNotFoundException e) {
                         throw new org.python.exceptions.ImportError("No module named '" + python_name + "'");
@@ -246,11 +238,11 @@ public class ImportLib {
                 // as one and continue.
                 throw (org.python.exceptions.BaseException) e.getCause();
             } catch (ClassCastException java_e) {
-                throw new org.python.exceptions.RuntimeError(e.getCause().getMessage());
+                throw new java.lang.ClassNotFoundException();
             }
         } catch (java.lang.InstantiationException e) {
             // e.printStackTrace();
-            throw new org.python.exceptions.RuntimeError(e.getCause().toString());
+            throw new java.lang.ClassNotFoundException();
         } finally {
             // org.Python.debug("CONSTRUCTOR DONE");
         }
