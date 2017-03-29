@@ -243,8 +243,6 @@ public class ImportLib {
         } catch (java.lang.InstantiationException e) {
             // e.printStackTrace();
             throw new java.lang.ClassNotFoundException();
-        } finally {
-            throw new org.python.exceptions.RuntimeError(e.getCause().toString());
         // } finally {
             // org.Python.debug("CONSTRUCTOR DONE");
         }
